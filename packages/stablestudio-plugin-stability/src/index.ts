@@ -292,7 +292,7 @@ export const createPlugin = StableStudio.createPlugin<{
         const base64Image = await axios.request({
           method: 'post',
           maxBodyLength: Infinity,
-          url: `${gconfig.PROXY_URL}/proxy/image?prompt=${input.prompts[0].text}&negative_prompt=${input.prompts[1]?.text}&num_images_per_prompt=${count}&width=${width}&height=${height}$seed=${imageParams.seed}&style=${input.style}`,
+          url: `${gconfig.PROXY_URL}/proxy/image?prompt=${input.prompts[0].text}&negative_prompt=${input.prompts[1]?.text}&num_images_per_prompt=${count}&width=${width}&height=${height}&seed=${imageParams.seed[0]}&style=${input.style}`,
         })
         .then((response: any) => {
           console.log("response", response.data?.images);

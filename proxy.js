@@ -16,6 +16,8 @@ ${req.query?.prompt}`,
       num_images_per_prompt: req.query?.num_images_per_prompt ?? 1,
       width: req.query?.width,
       height: req.query?.height,
+      seed: req.query?.seed,
+      count: 20,
     });
 
     console.log(data);

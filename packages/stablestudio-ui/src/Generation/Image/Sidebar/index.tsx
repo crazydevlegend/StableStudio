@@ -58,9 +58,9 @@ export namespace Sidebar {
           </App.Sidebar.Section>
         )}
         <Generation.Image.Prompt.Sidebar.Section id={id} />
-        {variant === "generate" && (
+        {/* {variant === "generate" && (
           <Generation.Image.Input.Image.Sidebar.Section id={id} />
-        )}
+        )} */}
         <App.Sidebar.Section
           divider={false}
           collapsable
