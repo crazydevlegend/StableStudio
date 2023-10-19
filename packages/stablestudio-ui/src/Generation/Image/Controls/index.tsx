@@ -79,8 +79,8 @@ export function Controls({ image }: { image: Generation.Image }) {
             {createVariationsButton}
             {!isMobileDevice && (
               <>
-                {editorButton}
-                {initialImageButton}
+                {/* {editorButton} */}
+                {/* {initialImageButton} */}
                 <Generation.Image.Controls.Button
                   name="Download image"
                   icon={Theme.Icon.Download}

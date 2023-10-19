@@ -1,6 +1,8 @@
 import { GrpcWebFetchTransport } from "@protobuf-ts/grpcweb-transport";
 import { RpcError } from "@protobuf-ts/runtime-rpc";
 import * as StableStudio from "@stability/stablestudio-plugin";
+import gconfig from "../../../config.json"
+const axios = require('axios');
 
 import {
   EnginesServiceClient,
@@ -10,6 +12,25 @@ import {
   ProjectServiceClient,
   Struct,
 } from "./Proto";
+
+function base64ToBlob(base64: string, contentType = '', sliceSize = 512) {
+  const byteCharacters = Buffer.from(base64, 'base64');
+  const byteArrays = [];
+  
+  for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    const slice = byteCharacters.subarray(offset, offset + sliceSize);
+    
+    const byteNumbers = new Array(slice.length);
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice[i];
+    }
+    
+    const byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+  
+  return new Blob(byteArrays, {type: contentType});
+}
 
 const getStableDiffusionDefaultCount = () => 4;
 const getStableDiffusionDefaultInputFromPrompt = (prompt: string) => ({
@@ -180,6 +201,7 @@ export const createPlugin = StableStudio.createPlugin<{
           ],
         });
 
+        console.log("imageparam", imageParams);
         const extras = (input.style || input.width !== input.height) && {
           extras: Struct.fromJson({
             $IPC: {
@@ -189,6 +211,7 @@ export const createPlugin = StableStudio.createPlugin<{
           }),
         };
 
+        console.log("style", input.style);
         const request = generation.chainGenerate({
           requestId: "",
           stage: [
@@ -242,7 +265,7 @@ export const createPlugin = StableStudio.createPlugin<{
         let id: string | undefined;
         const images: StableStudio.StableDiffusionImage[] = [];
 
-        for await (const response of request.responses) {
+        {/*for await (const response of request.responses) {
           for (const artifact of response.artifacts) {
             if (
               artifact.type === Generation.ArtifactType.ARTIFACT_TEXT &&
@@ -261,12 +284,35 @@ export const createPlugin = StableStudio.createPlugin<{
                   seed: artifact.seed,
                 },
                 id: artifact.uuid,
-                blob: new Blob([artifact.data.binary], { type: "image/png" }),
+                blob: base64ToBlob(base64Image, 'image/png'),
               });
             }
           }
+        }*/}
+        const base64Image = await axios.request({
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: `${gconfig.PROXY_URL}/proxy/image?prompt=${input.prompts[0].text}&negative_prompt=${input.prompts[1]?.text}&num_images_per_prompt=${count}&width=${width}&height=${height}$seed=${imageParams.seed}&style=${input.style}`,
+        })
+        .then((response: any) => {
+          console.log("response", response.data?.images);
+          return response.data?.images;
+        })
+        .catch((error: any) => {
+          console.log(error);
+        });
+        
+        id = String(Math.floor(Math.random() * 100000)).padStart(5, '0');
+        for (let i = 0; i < count; i++) {
+          images.push({
+            input: {
+              ...input,
+              seed: imageParams.seed[i]
+            },
+            id: String(Math.floor(Math.random() * 100000)).padStart(5, '0'),
+            blob: base64ToBlob(base64Image[i]?.slice(23, -1) ?? base64Image[0]?.slice(23, -1), 'image/jpeg'),
+          });
         }
-
         return id ? { id, images } : undefined;
       },
 

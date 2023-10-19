@@ -9,7 +9,7 @@ export namespace Count {
       <Theme.Slider
         title="Image count"
         min={1}
-        max={10}
+        max={4}
         value={count}
         onChange={setCount}
       />

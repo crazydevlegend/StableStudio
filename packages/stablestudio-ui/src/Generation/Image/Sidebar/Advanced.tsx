@@ -70,7 +70,7 @@ export function Advanced({
     >
       <div className="flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-8">
-          <Theme.Tooltip
+          {/* <Theme.Tooltip
             delay={750}
             placement="right"
             content={
@@ -92,8 +92,8 @@ export function Advanced({
               value={input.cfgScale}
               onNumberChange={onPromptStrengthChange}
             />
-          </Theme.Tooltip>
-          <Theme.Tooltip
+          </Theme.Tooltip> */}
+          {/* <Theme.Tooltip
             delay={750}
             content={
               <h1>
@@ -114,7 +114,7 @@ export function Advanced({
               value={input.steps}
               onNumberChange={onStepsChange}
             />
-          </Theme.Tooltip>
+          </Theme.Tooltip> */}
         </div>
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-2 items-end gap-8">
@@ -158,7 +158,7 @@ export function Advanced({
             </Theme.Tooltip>
           </div>
         </div>
-        {areModelsEnabled && (
+        {/* {areModelsEnabled && (
           <div className="-mx-2">
             <Generation.Image.Model.Dropdown id={id} />
           </div>
@@ -167,7 +167,7 @@ export function Advanced({
           <div className="-mx-2">
             <Generation.Image.Sampler.Dropdown id={id} />
           </div>
-        )}
+        )} */}
       </div>
     </App.Sidebar.Section>
   );

@@ -5,7 +5,7 @@ export function Sidebars() {
   return (
     <>
       <Generation.Image.Sidebar />
-      <Editor.Sidebar />
+      {/* <Editor.Sidebar /> */}
     </>
   );
 }

@@ -165,7 +165,7 @@ export function Content({
               className="shrink-0"
               noTitle
             />
-            <Theme.Button
+            {/* <Theme.Button
               outline
               icon={Theme.Icon.Edit}
               label="Edit image"
@@ -180,7 +180,7 @@ export function Content({
                 setInitImg(image.src);
                 onClose?.();
               }}
-            />
+            /> */}
             <Generation.Image.Prompt.Reuse.Button
               inputID={input.id}
               onClick={onClose}

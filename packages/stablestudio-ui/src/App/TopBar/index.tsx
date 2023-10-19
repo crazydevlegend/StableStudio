@@ -9,7 +9,7 @@ export function TopBar() {
     <nav className="relative flex h-14 w-screen shrink-0 flex-row items-center border-b border-black/20 bg-zinc-50 px-2 text-black dark:border-zinc-700 dark:bg-zinc-900 dark:text-white sm:min-w-[1000px]">
       <Left />
       <Center />
-      <Right />
+      {/* <Right /> */}
     </nav>
   );
 }
