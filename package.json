@@ -38,6 +38,8 @@
     "axios": "^1.5.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "global": "^4.4.0",
+    "serve": "^14.2.1",
     "vite-plugin-rewrite": "^0.0.8"
   }
 }

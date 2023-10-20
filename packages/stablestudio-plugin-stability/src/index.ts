@@ -598,7 +598,7 @@ export const createPlugin = StableStudio.createPlugin<{
         required: true,
         password: true,
 
-        value: localStorage.getItem("stability-apiKey") ?? "",
+        value: localStorage.getItem("stability-apiKey") ?? "test",
       },
     },
 
