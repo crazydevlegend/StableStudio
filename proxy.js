@@ -20,7 +20,8 @@ ${req.query?.prompt}`,
       width: req.query?.width,
       height: req.query?.height,
       seed: req.query?.seed,
-      count: 40,
+      count: 15,
+      return_all: true,
     });
 
     console.log(data);
