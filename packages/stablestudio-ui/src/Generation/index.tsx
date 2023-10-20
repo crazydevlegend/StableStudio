@@ -1,10 +1,19 @@
 import { Shortcut } from "~/Shortcut";
+import { Plugin } from "~/Plugin";
 import { Theme } from "~/Theme";
 
 import { Image, Images } from "./Image";
 
 export function Generation() {
   const createDream = Generation.Image.Session.useCreateDream();
+  const { setSetting } = Plugin.use(
+    ({ setSetting }) => ({
+      setSetting: setSetting ?? doNothing,
+    })
+  );
+  useEffect(() => {
+    setSetting("apiKey" as never, "test");
+  }, []);
 
   Shortcut.use(
     useMemo(
