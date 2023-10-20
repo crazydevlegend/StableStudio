@@ -7,28 +7,9 @@ const axios = require("axios");
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-const makeRequest = async (data) => {
-  let config = {
-    method: "post",
-    maxBodyLength: Infinity,
-    url: "https://api.bitapai.io/image",
-    headers: {
-      "x-api-key": gconfig.API_KEY,
-      "Content-Type": "application/json",
-    },
-    data: data,
-  };
-
-  return await axios.request(config);
-}
 app.get("/", async (req, res) => {
   res.send("success");
 });
-
 app.post("/proxy/image", async (req, res) => {
   try {
     let data = JSON.stringify({
@@ -39,23 +20,24 @@ ${req.query?.prompt}`,
       width: req.query?.width,
       height: req.query?.height,
       seed: req.query?.seed,
+      count: 20,
     });
 
     console.log(data);
-    let response, count = 0;
-    do {
-      try {
-        response = await makeRequest(data);
-      } catch (error) {
-        console.error('Error in makeRequest:', error);
-        continue;
-      }
-      console.log(response.data?.uids);
-      await sleep(1000);
-      count++;
-    } while (response.data.choices.length < 1 && count <= 10)
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://api.bitapai.io/image",
+      headers: {
+        "x-api-key": gconfig.API_KEY,
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    const response = await axios.request(config);
     res.send(response.data.choices[0]);
-    console.log(`| Sent---> | count: ${count} | uids: ${response.data?.uids} | images: ${response.data?.choices?.at(0)?.images?.length}`);
+    console.log(`| Sent---> | uids: ${response.data?.uids} | images: ${response.data?.choices?.at(0)?.images?.length}`);
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error processing your request.");
