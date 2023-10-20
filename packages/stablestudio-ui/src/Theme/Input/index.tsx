@@ -128,7 +128,7 @@ function SingleInput({
 
   className,
 
-  value,
+  value = "test",
   onChange,
 
   ...props
