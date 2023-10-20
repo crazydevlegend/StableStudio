@@ -34,7 +34,8 @@ export function Button({
       size="lg"
       color={noBrand ? "zinc" : "brand"}
       icon={Theme.Icon.Dream}
-      disabled={disabled || !isEnabled || !validated}
+      // disabled={disabled || !isEnabled || !validated}
+      disabled={disabled || !validated}
       onClick={onClick}
       {...props}
     >
