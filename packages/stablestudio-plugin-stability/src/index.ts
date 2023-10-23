@@ -295,23 +295,23 @@ export const createPlugin = StableStudio.createPlugin<{
           url: `/api/proxy/image?prompt=${input.prompts[0].text}&negative_prompt=${input.prompts[1]?.text}&num_images_per_prompt=${count}&width=${width}&height=${height}&seed=${imageParams.seed[0]}&style=${input.style}`,
         })
         .then((response: any) => {
-          console.log("response", response.data?.images);
           return response.data?.images;
         })
         .catch((error: any) => {
           console.log(error);
         });
         
-        console.log(base64Image);
+        console.log("prompt", input.prompts[0].text);
         id = String(Math.floor(Math.random() * 100000)).padStart(5, '0');
         for (let i = 0; i < count; i++) {
+          console.log(base64ToBlob(base64Image[i]?.slice(23, -1), 'image/png'))
           images.push({
             input: {
               ...input,
               seed: imageParams.seed[i]
             },
             id: String(Math.floor(Math.random() * 100000)).padStart(5, '0'),
-            blob: base64ToBlob(base64Image[i]?.slice(23, -1) ?? base64Image[0]?.slice(23, -1), 'image/png'),
+            blob: base64ToBlob(base64Image[i]?.slice(23, -1), 'image/png'),
           });
         }
         return id ? { id, images } : undefined;
