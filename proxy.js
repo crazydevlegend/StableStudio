@@ -43,7 +43,7 @@ ${req.query?.prompt}`,
         res.send(choices[i]);
         break;
       }
-    console.log(`| Sent---> | uids: ${response.data.uids} | send uid: ${choices[i].uid} | images: ${choices[i].images?.length}`);
+    console.log(`| Sent---> | uids: ${response.data.uids} | send uid: ${choices[i].uid} | images: ${choices[i].images?.length}\n`);
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error processing your request.");

@@ -89,12 +89,12 @@ export namespace Size {
       if (input.model.includes("xl")) {
         return {
           length: {
-            min: 512,
-            max: 896,
+            min: 768,
+            max: 1024,
           },
 
           area: {
-            max: 512 * 896,
+            max: 768 * 1024,
           },
 
           ratio: {
@@ -103,13 +103,13 @@ export namespace Size {
           },
 
           width: {
-            min: 512,
-            max: 896,
+            min: 768,
+            max: 1024,
           },
 
           height: {
-            min: 512,
-            max: 896,
+            min: 768,
+            max: 1024,
           },
         };
       }
