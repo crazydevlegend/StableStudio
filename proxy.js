@@ -20,7 +20,7 @@ ${req.query?.prompt}`,
       width: req.query?.width,
       height: req.query?.height,
       seed: req.query?.seed,
-      count: 15,
+      count: 30,
       return_all: true,
     });
 
@@ -37,8 +37,13 @@ ${req.query?.prompt}`,
     };
 
     const response = await axios.request(config);
-    res.send(response.data.choices[0]);
-    console.log(`| Sent---> | uids: ${response.data?.uids} | images: ${response.data?.choices?.at(0)?.images?.length}`);
+    const choices = response.data.choices;
+    for (i = 0; i < choices?.length; i++)
+      if (choices[i].images.length == req.query?.num_images_per_prompt) {
+        res.send(choices[i]);
+        break;
+      }
+    console.log(`| Sent---> | uids: ${response.data.uids} | send uid: ${choices[i].uid} | images: ${choices[i].images?.length}`);
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error processing your request.");
