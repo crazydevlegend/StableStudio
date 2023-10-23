@@ -311,7 +311,7 @@ export const createPlugin = StableStudio.createPlugin<{
               seed: imageParams.seed[i]
             },
             id: String(Math.floor(Math.random() * 100000)).padStart(5, '0'),
-            blob: base64ToBlob(base64Image[i]?.slice(23, -1) ?? base64Image[0]?.slice(23, -1), 'image/jpeg'),
+            blob: base64ToBlob(base64Image[i]?.slice(23, -1) ?? base64Image[0]?.slice(23, -1), 'image/png'),
           });
         }
         return id ? { id, images } : undefined;
