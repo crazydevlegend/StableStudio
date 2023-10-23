@@ -68,8 +68,8 @@ export namespace Create {
       );
 
       if (!Generation.Image.Input.isUpscaling(input)) {
-        pluginInput.height = Math.ceil((pluginInput.height ?? 512) / 64) * 64;
-        pluginInput.width = Math.ceil((pluginInput.width ?? 512) / 64) * 64;
+        pluginInput.height = Math.ceil((pluginInput.height ?? 1024) / 64) * 64;
+        pluginInput.width = Math.ceil((pluginInput.width ?? 1024) / 64) * 64;
       }
 
       const responses: Generation.Images = [];

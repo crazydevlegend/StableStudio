@@ -89,12 +89,12 @@ export namespace Size {
       if (input.model.includes("xl")) {
         return {
           length: {
-            min: 768,
-            max: 1024,
+            min: 1024,
+            max: 1792,
           },
 
           area: {
-            max: 768 * 1024,
+            max: 1024 * 1792,
           },
 
           ratio: {
@@ -103,18 +103,18 @@ export namespace Size {
           },
 
           width: {
-            min: 768,
-            max: 1024,
+            min: 1024,
+            max: 1792,
           },
 
           height: {
-            min: 768,
-            max: 1024,
+            min: 1024,
+            max: 1792,
           },
         };
       }
 
-      const maxArea = 1024 * 1024;
+      const maxArea = 1792 * 1792;
       const maxLength = 2048;
       const minLength = Generation.Image.Model.StableDiffusionV1.baseResolution(
         input.model

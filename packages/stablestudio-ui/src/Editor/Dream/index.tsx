@@ -28,9 +28,9 @@ export function Dream({ id }: { id: ID }) {
       onSizeChange={setSize}
       resizable={false}
       sizeClamp={{
-        min: { width: 512, height: 512 },
+        min: { width: 768, height: 1024 },
         max: input?.model.includes("xl")
-          ? { width: 512, height: 512 }
+          ? { width: 768, height: 1024 }
           : { width: 1024, height: 1024 },
       }}
     >
@@ -69,8 +69,8 @@ export namespace Dream {
     type: "dream",
     x: 0,
     y: 0,
-    width: 512,
-    height: 512,
+    width: 1024,
+    height: 1024,
     locked: false,
     visible: true,
     outputID: undefined,

@@ -55,8 +55,8 @@ export namespace StableDiffusionV1 {
 
         model: pluginDefaultInput?.model ?? "stable-diffusion-xl-beta-v2-2-2",
         sampler: pluginDefaultInput?.sampler ?? { id: "0", name: "DDIM" },
-        height: pluginDefaultInput?.width ?? 512,
-        width: pluginDefaultInput?.height ?? 512,
+        height: pluginDefaultInput?.width ?? 1024,
+        width: pluginDefaultInput?.height ?? 1024,
         steps: pluginDefaultInput?.steps ?? 50,
         seed: pluginDefaultInput?.seed ?? 0,
         guidance: false,
@@ -88,17 +88,17 @@ export namespace StableDiffusionV1 {
   };
 
   export const baseResolution = (model: string) => {
-    if (model.includes("512")) return 512;
+    if (model.includes("1024")) return 1024;
     if (model.includes("768")) return 768;
 
     switch (model) {
       case "stable-diffusion-v1-5":
-        return 512;
+        return 1024;
       case "stable-diffusion-v1-4":
-        return 512;
+        return 1024;
     }
 
-    return 512;
+    return 1024;
   };
 
   export const validate = ({

@@ -155,7 +155,7 @@ export function Image({
       <Image.SpecialEffects
         showing={shouldShowSpecialEffects}
         loading={!placeholder && shouldShowSpecialEffects}
-        variant={(style.height ?? 512) < 48 ? "small" : undefined}
+        variant={(style.height ?? 768) < 48 ? "small" : undefined}
         // example={example}
         // onClick={example ? onTryTemplate : undefined}
         // input={currentInput?.id}

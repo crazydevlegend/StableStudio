@@ -71,8 +71,8 @@ export function Entity({
 
   const [local, setLocalRaw] = useState<Box>(() => {
     const size = {
-      width: entity?.width ?? 512,
-      height: entity?.height ?? 512,
+      width: entity?.width ?? 1024,
+      height: entity?.height ?? 1024,
     };
 
     const local = {

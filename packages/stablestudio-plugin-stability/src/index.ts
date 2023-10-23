@@ -13,7 +13,7 @@ import {
   Struct,
 } from "./Proto";
 
-function base64ToBlob(base64: string, contentType = '', sliceSize = 512) {
+function base64ToBlob(base64: string, contentType = '', sliceSize = 1024) {
   const byteCharacters = Buffer.from(base64, 'base64');
   const byteArrays = [];
   
@@ -51,7 +51,7 @@ const getStableDiffusionDefaultInputFromPrompt = (prompt: string) => ({
   style: "enhance",
 
   width: 1024,
-  height: 768,
+  height: 1024,
 
   cfgScale: 7,
   steps: 50,
@@ -302,6 +302,7 @@ export const createPlugin = StableStudio.createPlugin<{
           console.log(error);
         });
         
+        console.log(base64Image);
         id = String(Math.floor(Math.random() * 100000)).padStart(5, '0');
         for (let i = 0; i < count; i++) {
           images.push({
