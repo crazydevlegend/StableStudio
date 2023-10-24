@@ -14,11 +14,16 @@ export function Button({
   const isEnabled = Generation.Image.Create.useIsEnabled();
 
   const { input } = Generation.Image.Input.use(id);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const onClick = useCallback(
     (event: MouseEvent) => {
       originalOnClick?.(event);
       onIdleClick?.(event);
+      setButtonDisabled(true); // Disable the button when clicked
+    setTimeout(() => {
+      setButtonDisabled(false); // Enable the button after 12 seconds
+    }, 30000);
     },
     [onIdleClick, originalOnClick]
   );
@@ -35,7 +40,7 @@ export function Button({
       color={noBrand ? "zinc" : "brand"}
       icon={Theme.Icon.Dream}
       // disabled={disabled || !isEnabled || !validated}
-      disabled={disabled || !validated}
+      disabled={disabled || !validated || isButtonDisabled}
       onClick={onClick}
       {...props}
     >
