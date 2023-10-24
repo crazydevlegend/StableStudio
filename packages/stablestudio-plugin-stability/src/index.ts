@@ -308,6 +308,8 @@ export const createPlugin = StableStudio.createPlugin<{
             blob: new Blob([binary], {type: 'image/jpeg'}),
           });
         }
+        console.log("total id", id);
+        console.log(images);
         return id ? { id, images } : undefined;
       },
 
