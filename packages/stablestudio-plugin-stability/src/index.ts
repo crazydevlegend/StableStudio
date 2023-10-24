@@ -13,23 +13,19 @@ import {
   Struct,
 } from "./Proto";
 
-function base64ToBlob(base64: string, contentType = '', sliceSize = 1024) {
-  const byteCharacters = Buffer.from(base64, 'base64');
-  const byteArrays = [];
-  
-  for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-    const slice = byteCharacters.subarray(offset, offset + sliceSize);
-    
-    const byteNumbers = new Array(slice.length);
-    for (let i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice[i];
-    }
-    
-    const byteArray = new Uint8Array(byteNumbers);
-    byteArrays.push(byteArray);
+const BASE64_MARKER = ';base64,';
+function convertDataURIToBinary(dataURI: string) {
+  const base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+  const base64 = dataURI.substring(base64Index);
+  const binaryString = window.atob(base64);
+  const binaryLength = binaryString.length;
+  const bytes = new Uint8Array(binaryLength);
+
+  for (let i = 0; i < binaryLength; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
   }
-  
-  return new Blob(byteArrays, {type: contentType});
+
+  return bytes;
 }
 
 const getStableDiffusionDefaultCount = () => 4;
@@ -201,7 +197,6 @@ export const createPlugin = StableStudio.createPlugin<{
           ],
         });
 
-        console.log("imageparam", imageParams);
         const extras = (input.style || input.width !== input.height) && {
           extras: Struct.fromJson({
             $IPC: {
@@ -301,17 +296,16 @@ export const createPlugin = StableStudio.createPlugin<{
           console.log(error);
         });
         
-        console.log("prompt", input.prompts[0].text);
         id = String(Math.floor(Math.random() * 100000)).padStart(5, '0');
         for (let i = 0; i < count; i++) {
-          console.log(base64ToBlob(base64Image[i]?.slice(23, -1), 'image/png'))
+          const binary = convertDataURIToBinary(base64Image[i]);
           images.push({
             input: {
               ...input,
               seed: imageParams.seed[i]
             },
             id: String(Math.floor(Math.random() * 100000)).padStart(5, '0'),
-            blob: base64ToBlob(base64Image[i]?.slice(23, -1), 'image/png'),
+            blob: new Blob([binary], {type: 'image/jpeg'}),
           });
         }
         return id ? { id, images } : undefined;
