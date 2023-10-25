@@ -196,7 +196,7 @@ export function Content({
         </div>
         {((areModelsEnabled && input.model) || (areStylesEnabled && style)) && (
           <div className="flex flex-wrap gap-1">
-            {areModelsEnabled && input.model && <Tag>{input.model}</Tag>}
+            {/* {areModelsEnabled && input.model && <Tag>{input.model}</Tag>} */}
             {areStylesEnabled && style && (
               <Tag className="flex items-center gap-1">
                 {style.image && (
