@@ -28,7 +28,7 @@ ${req.query?.prompt}`,
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://api.bitapai.io/image",
+      url: "https://staging-api.bitapai.io/image",
       headers: {
         "x-api-key": gconfig.API_KEY,
         "Content-Type": "application/json",

@@ -97,8 +97,9 @@ export namespace Ratio {
     if (!area) {
       const aspect = ratio.width / ratio.height;
       const min = bounds.length.min;
-      const width = aspect >= 1 ? Math.max(min, Math.round(min * aspect)) : min;
-      const height = aspect < 1 ? Math.max(min, Math.round(min / aspect)) : min;
+      const max = bounds.length.max;
+      const width = aspect >= 1 ? (aspect == 1 ? max :  Math.max(min, Math.round(min * aspect))) : min;
+      const height = aspect <= 1 ?  (aspect == 1 ? max : Math.max(min, Math.round(min / aspect))) : min;
       return { width, height };
     }
 
@@ -141,11 +142,7 @@ export namespace Ratios {
   const presets = [
     { width: 1, height: 1 },
     { width: 4, height: 3 },
-    { width: 3, height: 2 },
-    { width: 4, height: 5 },
-    { width: 16, height: 9 },
     { width: 1.85, height: 1 },
-    { width: 7, height: 4 },
     { width: 2, height: 1 },
     { width: 3, height: 1 },
     { width: 4, height: 1 },
