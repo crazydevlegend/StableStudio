@@ -1,5 +1,5 @@
 {
-    "PROXY_URL" : "",
+    "BTIAPAI_URL" : "https://api.bitapai.io/image",
     "API_KEY" : "",
     "PROXY_PORT" : 0
 }
